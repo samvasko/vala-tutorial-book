@@ -2,7 +2,7 @@
 
 **Eub/Mobi version of [Vala tutorial](https://wiki.gnome.org/Projects/Vala/Tutorial)**
 
-## License
+## License for the code
 
 Website to epub conversion
 Copyright (C) 2014  Samuel Vasko
