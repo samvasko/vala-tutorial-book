@@ -13,9 +13,14 @@ class Fetch
         self.transform_code content
         self.absolute_links content
         self.cleanup_paragraphs content
+        self.cleanup_headings content
+
+        ['id', 'lang', 'dir'].each { |e| content[0].remove_attribute(e) }
 
         return content
     end
+
+    private
 
     # Get the goods, sorry for the global
     def self.get_content
@@ -25,6 +30,12 @@ class Fetch
 
     def self.parse_toc content
         content.css('.table-of-contents > ol > li > ol')
+    end
+
+    def self.cleanup_headings content
+        content.css('h1, h2, h3, h4, h5, h6').each do |h|
+            h.set_attribute('id', h.attr('id').gsub('?', ''))
+        end
     end
 
     def self.absolute_links content
@@ -50,13 +61,14 @@ class Fetch
     def self.transform_code content
         content.css('.highlight').each do |el|
             pre = Nokogiri::XML::Node.new 'pre', $doc
-            pre.content = el.text
+            # cleaning non breaking spaces
+            pre.content = el.text.gsub("\u00A0", ' ')
             el.replace(pre)
         end
 
         content.css('tt.backtick').each do |el|
             code = Nokogiri::XML::Node.new 'code', $doc
-            code.content = el.text
+            code.content = el.text.gsub("\u00A0", ' ')
             el.replace(code)
         end
     end
