@@ -6,5 +6,5 @@ require 'fetch'
 require 'convert'
 
 content, toc = Fetch.run
-File.write('out.html', content)
+File.write('cache/out.html', content)
 Convert.run toc

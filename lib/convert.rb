@@ -14,10 +14,10 @@ class Convert
             identifier  'https://github.com/bliker/vala-tutorial-book', :scheme => 'URL'
             uid         'https://github.com/bliker/vala-tutorial-book'
 
-            files ['out.html']
+            files ['cache/out.html', 'css/css/base.css']
             nav toc
         end
-        epub.save('sample.epub')
+        epub.save('Vala Tutorial.epub')
     end
 
     def self.parse_toc doc
