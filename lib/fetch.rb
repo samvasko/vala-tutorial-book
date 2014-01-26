@@ -7,8 +7,8 @@ class Fetch
 
     def self.run
         content = self.get_content
-
         toc = self.parse_toc content
+
         self.remove_elements content
         self.transform_code content
         self.absolute_links content
@@ -17,7 +17,7 @@ class Fetch
 
         ['id', 'lang', 'dir'].each { |e| content[0].remove_attribute(e) }
 
-        return content
+        return content, toc
     end
 
     private
@@ -29,7 +29,7 @@ class Fetch
     end
 
     def self.parse_toc content
-        content.css('.table-of-contents > ol > li > ol')
+        content.css('.table-of-contents > ol > li > ol').to_html
     end
 
     def self.cleanup_headings content
@@ -40,7 +40,7 @@ class Fetch
 
     def self.absolute_links content
         content.css('a').each do |a|
-            if a.attr('href').starts_with '/'
+            if a.attr('href')[0] == '/'
                 a.set_attribute('href', 'https://wiki.gnome.org' + a.attr('href'))
             end
         end

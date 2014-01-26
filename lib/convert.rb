@@ -1,20 +1,52 @@
 require 'eeepub'
+require 'nokogiri'
 
-epub = EeePub.make do
-  title       'Vala Tutorial'
-  creator     'Maciej Piechotka'
-  publisher   'Samuel Vasko'
-  date        '2014-01-25'
-  identifier  'http://example.com/book/foo', :scheme => 'URL'
-  uid         'http://example.com/book/foo'
+class Convert
+    def self.run toc
+        # Join the forces!
+        doc = (['header', 'out', 'footer'].map {|f| File.read(f + '.html')}).join
+        toc = self.parse_toc toc
+        epub = EeePub.make do
+            title       'Vala Tutorial'
+            creator     'Gnome'
+            publisher   'Samuel Vasko'
+            date        '2014-01-25'
+            identifier  'https://github.com/bliker/vala-tutorial-book', :scheme => 'URL'
+            uid         'https://github.com/bliker/vala-tutorial-book'
 
+            files ['out.html']
+            nav toc
+        end
+        epub.save('sample.epub')
+    end
 
-  files ['/path/to/foo.html', '/path/to/bar.html'] # or files [{'/path/to/foo.html' => 'dest/dir'}, {'/path/to/bar.html' => 'dest/dir'}]
-  nav [
-    {:label => '1. foo', :content => 'foo.html', :nav => [
-      {:label => '1.1 foo-1', :content => 'foo.html#foo-1'}
-    ]},
-    {:label => '1. bar', :content => 'bar.html'}
-  ]
+    def self.parse_toc doc
+        doc = Nokogiri::HTML(doc)
+        self.mush_ol(doc.css('body > ol'))
+    end
+
+    def self.mush_li li
+        data = {
+            :label => li.css('> a').text,
+            :content => 'out.html' + li.css('a').attr('href')
+        }
+        unless li.css('ol').empty?
+            data[:nav] = self.mush_ol(li.css('ol'))
+            return data
+        else
+            return data
+        end
+    end
+
+    def self.mush_ol ol
+        out = []
+        ol.children.map do |li|
+            if li.name == 'li'
+                out << self.mush_li(li)
+            end
+        end
+
+        return out
+    end
+
 end
-epub.save('sample.epub')

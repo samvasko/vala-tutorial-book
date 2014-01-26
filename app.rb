@@ -5,4 +5,6 @@ $LOAD_PATH << './lib'
 require 'fetch'
 require 'convert'
 
-File.write('out.html', Fetch.run())
+content, toc = Fetch.run
+File.write('out.html', content)
+Convert.run toc
