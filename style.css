@@ -1,0 +1,62 @@
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6,
+p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del,
+dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub,
+sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form,
+label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent; }
+
+/* end reset */
+
+@page {
+  margin: 5px !important;
+}
+
+pre {
+    white-space: pre-wrap;
+    font-family: monospace;
+    margin: 10px 0 10px 20px;
+    font-size: 85%;
+    display: block;
+    -webkit-hyphens: none;
+    hyphens: none;
+    adobe-hyphenate: none;
+}
+
+h1 {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-top: 20px !important;
+}
+
+h2 {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #333;
+    margin: 15px 0 8px 0 !important;
+}
+
+h3 {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin: 10px 0 8px 0 !important;
+}
+
+h4 {
+    font-size: bold;
+    font-weight: 1em;
+    color: #555;
+    margin: 9px 0 !important;
+}
+
+h1, h2, h3, h4, h5 {
+    -webkit-hyphens: none;
+    hyphens: none;
+    font-family: Helvetica, Arial, sans-serif;
+    adobe-hyphenate: none;
+}
