@@ -1,6 +1,6 @@
 # Vala tutorial - ebook version
 
-**Eub/Mobi version of [Vala tutorial](https://wiki.gnome.org/Projects/Vala/Tutorial)**
+**Epub/Mobi version of [Vala tutorial](https://wiki.gnome.org/Projects/Vala/Tutorial)**
 
 ## License for the code
 
